@@ -47,6 +47,15 @@ export const Contain = styled.div((props) => ({
   ...(props.userSelect && { userSelect: props.userSelect }),
   ...(props.flexWrap && { flexWrap: props.flexWrap }),
   ...(props.gap && { gap: props.gap }),
+
+  ...(props.hoverAnimation && {
+    transform: 'translateY(0)',
+    transition: 'all 0.15s ease-out',
+    '&:hover': {
+      transform: 'translate(5px, -5px)',
+    },
+  }),
+
 }));
 
 export const Button = styled.button((props) => ({
