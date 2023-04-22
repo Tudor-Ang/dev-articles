@@ -6,7 +6,7 @@ import Home from './pages/Home'
 const routes = [
   {
     name: 'Login',
-    path: '/login',
+    path: '/auth/:type',
     isPrivate: false,
     Component: Auth,
     Layout,
