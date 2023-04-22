@@ -2,6 +2,7 @@ import Layout from './components/Layout/'
 
 import Auth from './pages/Auth'
 import Home from './pages/Home'
+import User from './pages/User'
 
 const routes = [
   {
@@ -16,6 +17,13 @@ const routes = [
     path: '/',
     isPrivate: false,
     Component: Home,
+    Layout,
+  },
+  {
+    name: 'UserProfile',
+    path: '/profile/:userId',
+    isPrivate: false,
+    Component: User,
     Layout,
   }
 ]
