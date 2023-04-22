@@ -1,9 +1,45 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
+import { Formik, Form } from 'formik';
+import { Wrapper, Contain, P, Button } from '../../components/Collection'
+import Input from '../../components/Input'
 
-const index = () => {
+const Auth = () => {
+  const { type } = useParams()
+
   return (
-    <div>auth</div>
+    <Wrapper>
+      <Contain padding={'40px 48px 40px 48px'} borderRadius={'5px'} background={'#fff'} direction={'column'} maxWidth={'640px'} width={"100%"} margin={'20px auto'} border={'1px solid lightGrey'}>
+        <P fontSize={30} weight={700} align={'center'}>Welcome to Dev Articles</P>
+        {/* TODO: add real data counter  */}
+        <P opacity={'0.7'} fontSize={16} align={'center'}>Dev Articles is a community of 4 amazing developers </P>
+
+        <Formik
+          initialValues={{ email: '', password: '', username: '' }}
+          // validate={values => { }}
+          onSubmit={(values) => {
+            console.log(values)
+          }}
+        >
+          {({ handleChange, values }) => (
+            <Form>
+              {/* TODO: add validation and display errors */}
+              <Contain direction={'column'}>
+                <Input margin={'20px 0 0'} onChange={handleChange} value={values.email} name={'email'} label={'Email'} />
+                {type === 'register' && <Input margin={'20px 0 0'} onChange={handleChange} value={values.username} name={'username'} label={'Username'} />}
+                <Input margin={'20px 0 0'} onChange={handleChange} value={values.password} name={'password'} label={'Password'} />
+
+                <Button type='submit' width={'100%'} padding={'10px'} color={'#fff'} background={'#3B49DF'} borderRadius={'5px'} height={'48px'} margin={'24px 0 0'}>Continue</Button>
+              </Contain>
+            </Form>
+          )}
+        </Formik>
+
+
+      </Contain>
+
+    </Wrapper>
   )
 }
 
-export default index
+export default Auth
