@@ -2,14 +2,13 @@ import React from 'react'
 
 import Navbar from './navbar';
 
-const index = ({ Component, name }) => {
+const index = ({ Component }) => {
   return (
-    <div>
-
+    <>
       <Navbar />
 
       <Component />
-    </div>
+    </>
   )
 }
 
