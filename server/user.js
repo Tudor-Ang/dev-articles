@@ -1,10 +1,11 @@
-import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
-// import Jwt from "jsonwebtoken";
-import { UserModel } from "./models/user";
-// import ActiveSession from "./models/activeSession";
-import { MONGO_DB_URI } from "./helper"; // secret, smtpConf
-// import reqAuth from "./middleware/reqAuth";
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+// import Jwt from 'jsonwebtoken';
+import { UserModel } from './models/user';
+// import ActiveSession from './models/activeSession';
+import { MONGO_DB_URI } from './helper'; // secret, smtpConf
+// import reqAuth from './middleware/reqAuth';
+import { AvatarGenerator } from 'random-avatar-generator';
 
 export class User {
   constructor() {
@@ -13,7 +14,7 @@ export class User {
 
   // connect mongoose to mongodb
   #connect() {
-    mongoose.set("strictQuery", false);
+    mongoose.set('strictQuery', false);
     try {
       mongoose.connect(MONGO_DB_URI);
     } catch (err) {
@@ -22,50 +23,42 @@ export class User {
   }
 
   // create a new user
-  // change gender, phoneNumber, city and country to have default value undefined after GNZ-321 is resolved
   async create(
     username,
     email,
     password,
   ) {
-    // if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
-    //   return { success: false, msg: "wrong email format" };
-    // }
-    // if (password.length < 8) {
-    //   return { success: false, msg: "password is too short" };
-    // }
+    // {TODO: add validations for email username and password}
 
-    const user = await UserModel.findOne({ email: email });
-    if (user) {
-      return { success: false, msg: "Email already exists" };
-    }
+    // {TODO: add validation for unique emails }
 
     const promise = new Promise((resolve, reject) => {
       bcrypt.genSalt(10, async function (err, salt) {
         if (err) {
-          reject({ success: false, msg: "Error at genSalt", error: err });
+          reject({ success: false, msg: 'Error at genSalt', error: err });
         } else {
           bcrypt.hash(password, salt, async function (err, hash) {
             if (err) {
-              reject({ success: false, msg: "Error at hash", error: err });
+              reject({ success: false, msg: 'Error at hash', error: err });
             } else {
               var err,
                 newUser = await UserModel.create({
                   username: username,
                   email: email,
                   password: hash,
+                  avatar: new AvatarGenerator().generateRandomAvatar(),
                 });
               if (err) {
                 reject({
                   success: false,
-                  msg: "Error at database",
+                  msg: 'Error at database',
                   error: err,
                 });
               } else {
                 var userId = newUser._id.toString();
                 resolve({
                   success: true,
-                  msg: "The user was succesfully registered",
+                  msg: 'The user was succesfully registered',
                   userId: userId,
                 });
               }
@@ -81,12 +74,12 @@ export class User {
   // async login(email, password) {
   //   const user = await UserModel.findOne({ email: email });
   //   if (!user) {
-  //     return { success: false, msg: "Wrong credentials" };
+  //     return { success: false, msg: 'Wrong credentials' };
   //   }
   //   const promise = new Promise((resolve, reject) => {
   //     bcrypt.compare(password, user.password, async function (err, res) {
   //       if (err) {
-  //         reject({ success: false, msg: "Error at compare", error: err });
+  //         reject({ success: false, msg: 'Error at compare', error: err });
   //       } else {
   //         if (res) {
   //           const token = Jwt.sign(user.toJSON(), secret, {
@@ -97,7 +90,7 @@ export class User {
   //           user.password = null;
   //           resolve({ success: true, user: user, token: token });
   //         } else {
-  //           resolve({ success: false, msg: "incorrect user or password" });
+  //           resolve({ success: false, msg: 'incorrect user or password' });
   //         }
   //       }
   //     });
@@ -115,7 +108,7 @@ export class User {
   //   const user = await UserModel.findById(activeSession.userId);
 
   //   if (!user) {
-  //     return { success: false, msg: "user not logged in or not found" };
+  //     return { success: false, msg: 'user not logged in or not found' };
   //   }
   //   return { success: true, user: user };
   // }
@@ -126,7 +119,7 @@ export class User {
   //     await ActiveSession.deleteMany({ token: token });
   //     return { success: true };
   //   } catch (err) {
-  //     return { success: false, msg: "error at logout", error: err };
+  //     return { success: false, msg: 'error at logout', error: err };
   //   }
   // }
 
