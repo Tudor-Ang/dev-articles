@@ -6,7 +6,7 @@
 import { Remote } from "./remote.js"
 
 export class Task {
-  static remote = new Remote("https://h4ubelvr6nkihss5qedgqu7isu0fkhwm.lambda-url.eu-central-1.on.aws/")
+  static remote = new Remote("http://127.0.0.1:8083/Task")
 
   static async getAllTasksByUser(token) {
     return Task.remote.call("Task.getAllTasksByUser", token)
