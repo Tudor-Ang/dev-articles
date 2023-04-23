@@ -12,4 +12,8 @@ export class User {
     return User.remote.call("User.create", username, email, password)
   }
 
+  static async login(email, password) {
+    return User.remote.call("User.login", email, password)
+  }
+
 }
