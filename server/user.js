@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-// import Jwt from 'jsonwebtoken';
+import Jwt from 'jsonwebtoken';
 import { UserModel } from './models/user';
-// import ActiveSession from './models/activeSession';
-import { MONGO_DB_URI } from './helper'; // secret, smtpConf
+import ActiveSession from './models/activeSession';
+import { MONGO_DB_URI, secret } from './helper'; // secret, smtpConf
 // import reqAuth from './middleware/reqAuth';
 import { AvatarGenerator } from 'random-avatar-generator';
 
@@ -71,32 +71,34 @@ export class User {
   }
 
   // login
-  // async login(email, password) {
-  //   const user = await UserModel.findOne({ email: email });
-  //   if (!user) {
-  //     return { success: false, msg: 'Wrong credentials' };
-  //   }
-  //   const promise = new Promise((resolve, reject) => {
-  //     bcrypt.compare(password, user.password, async function (err, res) {
-  //       if (err) {
-  //         reject({ success: false, msg: 'Error at compare', error: err });
-  //       } else {
-  //         if (res) {
-  //           const token = Jwt.sign(user.toJSON(), secret, {
-  //             expiresIn: 86400, // 1 week
-  //           });
-  //           await ActiveSession.deleteMany({ userId: user._id });
-  //           await ActiveSession.create({ token: token, userId: user._id });
-  //           user.password = null;
-  //           resolve({ success: true, user: user, token: token });
-  //         } else {
-  //           resolve({ success: false, msg: 'incorrect user or password' });
-  //         }
-  //       }
-  //     });
-  //   });
-  //   return promise;
-  // }
+  async login(email, password) {
+    const user = await UserModel.findOne({ email: email });
+
+    if (!user) {
+      return { success: false, msg: 'Wrong credentials' };
+    }
+
+    const promise = new Promise((resolve, reject) => {
+      bcrypt.compare(password, user.password, async function (err, res) {
+        if (err) {
+          reject({ success: false, msg: 'Wrong credentials', error: err });
+        } else {
+          if (res) {
+            const token = Jwt.sign(user.toJSON(), secret, {
+              expiresIn: 86400, // 1 week
+            });
+            await ActiveSession.deleteMany({ userId: user._id });
+            await ActiveSession.create({ token: token, userId: user._id });
+            user.password = null;
+            resolve({ success: true, user: user, token: token });
+          } else {
+            resolve({ success: false, msg: 'incorrect user or password' });
+          }
+        }
+      });
+    });
+    return promise;
+  }
 
   // get a user by his token
   // async getUserByToken(token) {
