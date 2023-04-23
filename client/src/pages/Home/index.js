@@ -1,8 +1,20 @@
 import React from 'react'
 
+import Post from '../../components/Post'
+import { Wrapper } from '../../components/Collection'
+
 const index = () => {
   return (
-    <div>home</div>
+    <Wrapper>
+
+      <Post />
+      <Post />
+      <Post />
+      <Post />
+      <Post />
+
+
+    </Wrapper>
   )
 }
 
