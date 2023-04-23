@@ -91,3 +91,14 @@ export const P = styled.p((props) => ({
   ...(props.margin && { margin: props.margin }),
   ...(props.padding && { padding: props.padding }),
 }));
+
+export const Textarea = styled.textarea((props) => ({
+  width: '100%',
+  resize: 'none',
+  height: '134px',
+  padding: '20px',
+  outline: 'none',
+  border: 'none',
+  fontSize: props.fontSize ? props.theme?.toEm(props.fontSize) : props.theme?.toEm(14),
+  ...(props.weight && { fontWeight: props.weight }),
+}));
