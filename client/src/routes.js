@@ -3,6 +3,8 @@ import Layout from './components/Layout/'
 import Auth from './pages/Auth'
 import Home from './pages/Home'
 import User from './pages/User'
+import Article from './pages/Article'
+import Write from './pages/Write'
 
 const routes = [
   {
@@ -24,6 +26,20 @@ const routes = [
     path: '/profile/:userId',
     isPrivate: false,
     Component: User,
+    Layout,
+  },
+  {
+    name: 'article',
+    path: '/article/:article',
+    isPrivate: false,
+    Component: Article,
+    Layout,
+  },
+  {
+    name: 'NewArticle',
+    path: '/write',
+    isPrivate: false,
+    Component: Write,
     Layout,
   }
 ]
