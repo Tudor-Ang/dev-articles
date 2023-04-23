@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import User from './pages/User'
 import Article from './pages/Article'
 import Write from './pages/Write'
+import NotFound from './pages/NotFound'
 
 const routes = [
   {
@@ -41,7 +42,14 @@ const routes = [
     isPrivate: false,
     Component: Write,
     Layout,
-  }
+  },
+  {
+    name: '404',
+    path: '*',
+    isPrivate: false,
+    Component: NotFound,
+    Layout,
+  },
 ]
 
 export default routes
