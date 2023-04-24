@@ -28,7 +28,18 @@ const Auth = () => {
         navigate('/auth/login');
       }
     } else {
-      console.log('login')
+      const res = await User.login(email, password).catch(err => {
+        console.log(err.error);
+      });
+
+      if (!res.success) {
+        console.log(res.msg);
+        return;
+      } else {
+        localStorage.setItem('apiToken', res.token);
+        localStorage.setItem('user', JSON.stringify(res.user));
+        navigate('/');
+      }
     }
   }
 
