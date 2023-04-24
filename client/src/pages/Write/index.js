@@ -38,9 +38,9 @@ const Write = () => {
       <Contain border={'1px solid lightGrey'} borderRadius={'5px'} background={'#fff'} maxWidth={'800px'} width={'100%'} margin={'20px 0 0'} padding={'20px'}>
         <form onSubmit={formik.handleSubmit}>
           <Textarea
-            id="title"
-            name="title"
-            type="text"
+            id='title'
+            name='title'
+            type='text'
             placeholder='Title'
             fontSize={60}
             weight={700}
@@ -51,9 +51,9 @@ const Write = () => {
           <Editor
             placeholder='Write your article content here...'
             editorState={formik.values.content}
-            toolbarClassName="toolbarClassName"
-            wrapperClassName="wrapperClassName"
-            editorClassName="editorClassName"
+            toolbarClassName='toolbarClassName'
+            wrapperClassName='wrapperClassName'
+            editorClassName='editorClassName'
             onEditorStateChange={handleEditorStateChange}
             toolbar={toolbarConfig}
           />
