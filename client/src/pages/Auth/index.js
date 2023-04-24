@@ -48,8 +48,7 @@ const Auth = () => {
     <Wrapper>
       <Contain padding={'40px 48px 40px 48px'} borderRadius={'5px'} background={'#fff'} direction={'column'} maxWidth={'640px'} width={'100%'} margin={'20px auto'} border={'1px solid lightGrey'}>
         <P fontSize={30} weight={700} align={'center'}>Welcome to Dev Articles</P>
-        {/* TODO: add real data counter  */}
-        <P opacity={'0.7'} fontSize={16} align={'center'}>Dev Articles is a community of 4 amazing developers </P>
+        <P opacity={'0.7'} fontSize={16} align={'center'}>Dev Articles is a community of amazing developers </P>
 
         <Formik
           initialValues={{ email: '', password: '', username: '' }}
