@@ -2,9 +2,9 @@ import React from 'react';
 import { Wrapper, Contain, Button, Textarea } from '../../components/Collection'
 import { useFormik } from 'formik';
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState } from 'draft-js'; //convertToRaw
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import draftToHtml from 'draftjs-to-html';
+// import draftToHtml from 'draftjs-to-html';
 import { Article } from '../../sdk/article.sdk'
 import { useNavigate } from 'react-router-dom';
 
@@ -38,9 +38,9 @@ const Write = ({ userDetails }) => {
     formik.setFieldValue('content', editorState);
   };
 
-  const contentState = formik.values.content.getCurrentContent();
-  const rawContentState = convertToRaw(contentState);
-  const markup = draftToHtml(rawContentState);
+  // const contentState = formik.values.content.getCurrentContent();
+  // const rawContentState = convertToRaw(contentState);
+  // const markup = draftToHtml(rawContentState);
 
   const toolbarConfig = {
     options: ['inline', 'list'],
