@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const activeSessionSchema = new Schema({
   token: {
@@ -16,6 +16,6 @@ const activeSessionSchema = new Schema({
   },
 });
 
-const activeSession = model("ActiveSession", activeSessionSchema);
+const activeSession = model('ActiveSession', activeSessionSchema);
 
 export default activeSession;
