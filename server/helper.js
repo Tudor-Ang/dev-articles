@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs"
+import bcrypt from 'bcryptjs'
 
 
 export async function validatePassword(saltedPassword, password) {
@@ -37,4 +37,4 @@ export async function saltPassword(password) {
 
 //TODO: move Secret and MONGO_DB_URI to a .env file
 export const secret = 'mysecret';
-export const MONGO_DB_URI = "mongodb+srv://tudoranis:tudoranis@dev-articles.1fbeqoh.mongodb.net/?retryWrites=true&w=majority"
+export const MONGO_DB_URI = 'mongodb+srv://tudoranis:tudoranis@dev-articles.1fbeqoh.mongodb.net/?retryWrites=true&w=majority'
