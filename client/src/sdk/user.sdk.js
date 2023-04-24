@@ -16,8 +16,16 @@ export class User {
     return User.remote.call("User.login", email, password)
   }
 
+  static async getUserDetails(username) {
+    return User.remote.call("User.getUserDetails", username)
+  }
+
   static async getUserByToken(token) {
     return User.remote.call("User.getUserByToken", token)
+  }
+
+  static async logout(token) {
+    return User.remote.call("User.logout", token)
   }
 
 }
