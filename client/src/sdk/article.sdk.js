@@ -8,8 +8,8 @@ import { Remote } from "./remote.js"
 export class Article {
   static remote = new Remote("http://127.0.0.1:8083/Article")
 
-  static async createTask(token, title) {
-    return Article.remote.call("Article.createTask", token, title)
+  static async createArticle(title, content, creator) {
+    return Article.remote.call("Article.createArticle", title, content, creator)
   }
 
 }
