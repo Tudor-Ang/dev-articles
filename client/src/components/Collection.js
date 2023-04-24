@@ -105,4 +105,8 @@ export const Textarea = styled.textarea((props) => ({
 
 export const Image = styled.img((props) => ({
   ...(props.width && { width: props.width }),
+  ...(props.border && { border: props.border }),
+  ...(props.borderRadius && { borderRadius: props.borderRadius }),
+  ...(props.margin && { margin: props.margin }),
+  ...(props.background && { background: props.background }),
 }));
