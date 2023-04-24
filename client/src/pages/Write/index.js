@@ -5,18 +5,33 @@ import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
+import { Article } from '../../sdk/article.sdk'
+import { useNavigate } from 'react-router-dom';
 
+const Write = ({ userDetails }) => {
+  const navigate = useNavigate();
 
+  const handleSubmit = async (values) => {
+    const res = await Article.createArticle(values?.title, values?.content, userDetails).catch(err => {
+      console.log(err.error);
+      return;
+    });
 
-const Write = () => {
+    if (!res.success) {
+      console.log(res.msg);
+      return;
+    } else {
+      navigate('/');
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       title: '',
+      creator: '',
       content: EditorState.createEmpty(),
     },
-    onSubmit: (values) => {
-      console.log(values);
-    },
+    onSubmit: (values) => handleSubmit(values),
   });
 
   const handleEditorStateChange = (editorState) => {
@@ -34,7 +49,6 @@ const Write = () => {
 
   return (
     <Wrapper>
-
       <Contain border={'1px solid lightGrey'} borderRadius={'5px'} background={'#fff'} maxWidth={'800px'} width={'100%'} margin={'20px 0 0'} padding={'20px'}>
         <form onSubmit={formik.handleSubmit}>
           <Textarea
@@ -66,7 +80,7 @@ const Write = () => {
       </Contain>
 
       {/* TODO: live preview */}
-      <div dangerouslySetInnerHTML={{ __html: markup }} />
+      {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
 
 
     </Wrapper>
