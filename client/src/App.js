@@ -6,6 +6,7 @@ import Theme from './theme'
 //global style
 import './assets/styles/index.scss'
 
+// TODO: Add redux 
 function App() {
   return (
     <ThemeProvider theme={Theme}>
