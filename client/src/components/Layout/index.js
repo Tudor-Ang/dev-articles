@@ -23,9 +23,10 @@ const Layout = ({ Component, name }) => {
     }
   });
 
-  //TODO: fix navbar update bug on log out 
   const logOut = async () => {
     await User.logout(localStorage.getItem('apiToken'))
+    localStorage.removeItem('apiToken')
+    localStorage.removeItem('user')
     window.location.href = '/auth/login';
   }
 
