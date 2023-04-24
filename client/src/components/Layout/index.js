@@ -1,15 +1,37 @@
-import React from 'react'
-
+import React, { useEffect } from 'react';
+import { User } from '../../sdk/user.sdk';
 import Navbar from './navbar';
 
-const index = ({ Component }) => {
+const Layout = ({ Component, name }) => {
+  const userDetails = JSON.parse(localStorage.getItem('user'))
+
+  // TODO: fix sending multiple POST reqs
+  useEffect(() => {
+    if (name !== 'Login' && name !== 'Register') {
+      if (localStorage.getItem('apiToken') === null || localStorage.getItem('user') === null) {
+        localStorage.clear();
+        window.location.href = '/auth/login';
+      }
+      async function checkToken() {
+        const res = await User.getUserByToken(localStorage.getItem('apiToken'));
+        if (!res || !res.success) {
+          localStorage.clear();
+          window.location.href = '/auth/login';
+        }
+      }
+      checkToken();
+    }
+  });
+
+
   return (
     <>
-      <Navbar />
+      {/* TODO: display loading screen until we check the token */}
+      <Navbar userDetails={userDetails} />
 
-      <Component />
+      <Component userDetails={userDetails} />
     </>
   )
 }
 
-export default index
+export default Layout
