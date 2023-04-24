@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from 'react'
-
-import { Wrapper, Contain, P } from '../../components/Collection'
+import { useParams } from 'react-router-dom'
+import { Wrapper, Contain, P, Image } from '../../components/Collection'
 import Post from '../../components/Post'
+import { User } from '../../sdk/user.sdk'
 
-const User = () => {
+const UserProfile = ({ match }) => {
   const [randomColor, setRandomColor] = useState('')
+  const [userDetails, setUserDetails] = useState([])
+
+  // TODO: redirect to 404 if we dont have any username
+  const { username } = useParams()
+
+  useEffect(() => {
+    getUserDetails()
+    generateRandomHexCode()
+  }, [])
+
+  const getUserDetails = () => {
+    User.getUserDetails(username).then((fetchUserDetails) => setUserDetails(fetchUserDetails?.user));
+  }
 
 
   const generateRandomHexCode = () => {
@@ -15,23 +29,13 @@ const User = () => {
     setRandomColor(hexColor)
   }
 
-  useEffect(() => {
-    generateRandomHexCode()
-  }, [])
-
-
-
   return (
     <>
       <Contain background={randomColor} height={'150px'} />
-
       <Wrapper>
         <Contain padding={'0 20px 20px 20px'} direction={'column'} margin={'-35px 0 0 0'} align={'center'} minHeight={'180px'} background={'#fff'} border={'1px solid lightgrey'} borderRadius={'5px'}>
-          <Contain height={'100px'} width={'100px'} margin={'-40px 0 0 0'} border={`10px solid ${randomColor}`} borderRadius={'200px'} />
-          <P margin={'5px 0 10px 0'} fontSize={26} weight={800}>Erin Bensinger</P>
-          <P align={'center'} opacity={'0.7'} fontSize={16}>
-            Social Media Manager @ Forem, which powers CodeNewbie and dev.to. Posts, memes, and internet dreams.
-          </P>
+          <Image background={randomColor} width={'100px'} margin={'-40px 0 0 0'} border={`10px solid ${randomColor}`} borderRadius={'200px'} alt='avatar' src={userDetails?.avatar} />
+          <P margin={'15px 0 10px 0'} fontSize={36} weight={800}>{userDetails?.username}</P>
         </Contain>
 
         <Post />
@@ -42,4 +46,4 @@ const User = () => {
   )
 }
 
-export default User
+export default UserProfile;
