@@ -16,4 +16,8 @@ export class User {
     return User.remote.call("User.login", email, password)
   }
 
+  static async getUserByToken(token) {
+    return User.remote.call("User.getUserByToken", token)
+  }
+
 }
