@@ -23,11 +23,17 @@ const Layout = ({ Component, name }) => {
     }
   });
 
+  //TODO: fix navbar update bug on log out 
+  const logOut = async () => {
+    await User.logout(localStorage.getItem('apiToken'))
+    window.location.href = '/auth/login';
+  }
+
 
   return (
     <>
       {/* TODO: display loading screen until we check the token */}
-      <Navbar userDetails={userDetails} />
+      <Navbar logoutHandler={logOut} userDetails={userDetails} />
 
       <Component userDetails={userDetails} />
     </>
