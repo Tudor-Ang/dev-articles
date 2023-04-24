@@ -1,23 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Nav, Logo } from './styles'
-import { Contain, Button } from '../../Collection';
+import { Contain, Button, Image } from '../../Collection';
 
-
-const Navbar = () => {
+const Navbar = ({ userDetails }) => {
   return (
     <Contain background={'#fff'} borderBottom={'1px solid lightGrey'}>
       <Nav>
         {/*TODO: change placeholder logo */}
-        <Logo>Logo</Logo>
+        <Link to={'/'}>
+          <Logo>
+            DevArticles
+          </Logo>
+        </Link>
 
-        <Contain>
-          {true == true ? (<>
-            <Link to='/write'>
-              <Button border={'1px solid #3B49DF'} color={'#3B49DF'} borderRadius={'7px'} background={'transparent'} padding={'8px 20px 8px 20px'} margin={'0 15px 0 10px'} hoverBackground={'#3B49DF'} hoverColor={'#fff'}>Write</Button>
-            </Link>
-            <Contain border={'1px solid red'} width={'40px'} borderRadius={'200px'} height={'40px'} />
-          </>) : (
+        <Contain align={'center'}>
+          {userDetails ? (
+            <>
+              <Link to='/write'>
+                <Button border={'1px solid #3B49DF'} color={'#3B49DF'} borderRadius={'7px'} background={'transparent'} padding={'8px 20px 8px 20px'} margin={'0 15px 0 10px'} hoverBackground={'#3B49DF'} hoverColor={'#fff'}>Write</Button>
+              </Link>
+              <Link to={`/profile/${userDetails?.username}`}>
+                <Image width={'40px'} src={userDetails?.avatar} alt={`${userDetails?.username}__avatar`} />
+              </Link>
+            </>
+          ) : (
             <>
               <Link to='/auth/login'>
                 <Button borderRadius={'7px'} color={'grey'} background={'transparent'} fontWeight={'300'} hoverBackground={'#EBECFC'} padding={'8px 20px 8px 20px'} hoverColor={'#3B49DF'}>Log in</Button>
