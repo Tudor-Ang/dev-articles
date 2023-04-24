@@ -102,3 +102,7 @@ export const Textarea = styled.textarea((props) => ({
   fontSize: props.fontSize ? props.theme?.toEm(props.fontSize) : props.theme?.toEm(14),
   ...(props.weight && { fontWeight: props.weight }),
 }));
+
+export const Image = styled.img((props) => ({
+  ...(props.width && { width: props.width }),
+}));
