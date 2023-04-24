@@ -13,9 +13,6 @@ frontend:
   path: ../client/build
   subdomain: tan-oral-rooster
 classes:
-  - path: ./task.js
-    type: jsonrpc
-    methods: []
   - path: user.js
     type: jsonrpc
     methods: []
