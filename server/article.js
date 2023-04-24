@@ -1,7 +1,6 @@
 import { mongoose } from "mongoose"
 import { MONGO_DB_URI } from "./helper"
-import { TaskModel } from "./models/task"
-
+import { ArticleModel } from "./models/article"
 
 export class Article {
   constructor() {
@@ -12,21 +11,17 @@ export class Article {
     mongoose.connect(MONGO_DB_URI);
   }
 
+  async createArticle(title, content, creator) {
 
-  async createTask(token, title) {
-    console.log(`Create task request received for user with ${token} with title ${title}`)
-
-    const task = await TaskModel.create({
+    const article = await ArticleModel.create({
       title: title,
-      token: token
+      content: content,
+      creator: creator,
     });
 
     return {
       success: true,
-      task: { title: title, _id: task._id.toString() }
+      article: { title: title, content: content, creator: creator }
     };
   }
-
-
-
 }
