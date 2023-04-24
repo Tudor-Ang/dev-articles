@@ -4,7 +4,7 @@ import Jwt from 'jsonwebtoken';
 import { UserModel } from './models/user';
 import ActiveSession from './models/activeSession';
 import { MONGO_DB_URI, secret } from './helper'; // secret, smtpConf
-// import reqAuth from './middleware/reqAuth';
+import reqAuth from './middleware/reqAuth';
 import { AvatarGenerator } from 'random-avatar-generator';
 
 export class User {
@@ -100,29 +100,41 @@ export class User {
     return promise;
   }
 
+  //get user by username
+  async getUserDetails(username) {
+    const user = await UserModel.findOne({ username });
+
+    if (!user) {
+      return { success: false, msg: 'user not found' };
+    }
+    return { success: true, user: user };
+
+  }
+
+
   // get a user by his token
-  // async getUserByToken(token) {
-  //   const activeSession = await reqAuth(token);
-  //   if (!activeSession.success) {
-  //     return { success: false, msg: activeSession.msg };
-  //   }
+  async getUserByToken(token) {
+    const activeSession = await reqAuth(token);
+    if (!activeSession.success) {
+      return { success: false, msg: activeSession.msg };
+    }
 
-  //   const user = await UserModel.findById(activeSession.userId);
+    const user = await UserModel.findById(activeSession.userId);
 
-  //   if (!user) {
-  //     return { success: false, msg: 'user not logged in or not found' };
-  //   }
-  //   return { success: true, user: user };
-  // }
+    if (!user) {
+      return { success: false, msg: 'user not logged in or not found' };
+    }
+    return { success: true, user: user };
+  }
 
   // logout
-  // async logout(token) {
-  //   try {
-  //     await ActiveSession.deleteMany({ token: token });
-  //     return { success: true };
-  //   } catch (err) {
-  //     return { success: false, msg: 'error at logout', error: err };
-  //   }
-  // }
+  async logout(token) {
+    try {
+      await ActiveSession.deleteMany({ token: token });
+      return { success: true };
+    } catch (err) {
+      return { success: false, msg: 'error at logout', error: err };
+    }
+  }
 
 }
