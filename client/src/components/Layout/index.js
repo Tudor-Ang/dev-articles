@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { User } from '../../sdk/user.sdk';
 import Navbar from './navbar';
 import ScrollToTop from "react-scroll-to-top";
 // import { Navigate } from "react-router-dom";
 
 const Layout = ({ name, children }) => {
-  const [user, setUser] = useState(null);
   const userDetails = localStorage.getItem('user')
-
-  useEffect(() => {
-    setUser(JSON.parse(userDetails))
-  }, [])
-
   // TODO: move to redux
   useEffect(() => {
     if (name !== 'Login' && name !== 'Register') {
@@ -20,7 +14,6 @@ const Layout = ({ name, children }) => {
         // TODO: use react navigate <Navigate to={'/auth/login'} replace={true} />
         window.location.href = '/auth/login';
       }
-
       checkToken();
     }
   }, []);
@@ -43,7 +36,7 @@ const Layout = ({ name, children }) => {
   return (
     <div key={name}>
       {/* TODO: display loading screen until we check the token */}
-      <Navbar logoutHandler={logOut} userDetails={user} />
+      <Navbar logoutHandler={logOut} userDetails={JSON.parse(userDetails)} />
       {children}
       <ScrollToTop width='30px' height='30px' color={'#3B49DF'} smooth />
     </div>
