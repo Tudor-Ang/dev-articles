@@ -3,10 +3,12 @@ import { useParams } from 'react-router-dom'
 import { Wrapper, Contain, P, Image } from '../../components/Collection'
 import Post from '../../components/Post'
 import { User } from '../../sdk/user.sdk'
+import { Article } from '../../sdk/article.sdk'
 
-const UserProfile = ({ match }) => {
+const UserProfile = () => {
   const [randomColor, setRandomColor] = useState('')
   const [userDetails, setUserDetails] = useState([])
+  const [articles, setArticles] = useState([])
 
   // TODO: redirect to 404 if we dont have any username
   const { username } = useParams()
@@ -14,7 +16,14 @@ const UserProfile = ({ match }) => {
   useEffect(() => {
     getUserDetails()
     generateRandomHexCode()
+    fetchArticles();
   }, [])
+
+
+  const fetchArticles = async () => {
+    const data = await Article.getArticles(username);
+    setArticles(data?.articles);
+  }
 
   const getUserDetails = () => {
     User.getUserDetails(username).then((fetchUserDetails) => setUserDetails(fetchUserDetails?.user));
@@ -38,9 +47,7 @@ const UserProfile = ({ match }) => {
           <P margin={'15px 0 10px 0'} fontSize={36} weight={800}>{userDetails?.username}</P>
         </Contain>
 
-        <Post />
-        <Post />
-        <Post />
+        {articles?.map((article) => (<Post key={article?._id} data={article} />))}
       </Wrapper>
     </>
   )

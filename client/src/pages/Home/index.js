@@ -1,21 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Post from '../../components/Post'
 import { Wrapper } from '../../components/Collection'
 
-const index = () => {
+import { Article } from '../../sdk/article.sdk'
+
+const Home = () => {
+
+  const [articles, setArticles] = useState([])
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
+  const fetchArticles = async () => {
+    const data = await Article.getArticles();
+    setArticles(data?.articles);
+  }
+
   return (
     <Wrapper>
 
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      {articles?.map((article) => (<Post key={article?._id} data={article} />))}
 
 
     </Wrapper>
   )
 }
 
-export default index
+export default Home
