@@ -55,7 +55,6 @@ export const Contain = styled.div((props) => ({
       transform: 'translate(5px, -5px)',
     },
   }),
-
 }));
 
 export const Button = styled.button((props) => ({
@@ -96,6 +95,10 @@ export const P = styled.p((props) => ({
       color: '#3B49DF',
     },
   }),
+
+  '@media (max-width: 980px)': {
+    fontSize: props.theme?.toEm(14)
+  },
 }));
 
 export const Textarea = styled.textarea((props) => ({
