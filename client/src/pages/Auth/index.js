@@ -61,7 +61,7 @@ const Auth = () => {
               <Contain direction={'column'}>
                 <Input margin={'20px 0 0'} onChange={handleChange} value={values.email} name={'email'} label={'Email'} />
                 {type === 'register' && <Input margin={'20px 0 0'} onChange={handleChange} value={values.username} name={'username'} label={'Username'} />}
-                <Input margin={'20px 0 0'} onChange={handleChange} value={values.password} name={'password'} label={'Password'} />
+                <Input margin={'20px 0 0'} onChange={handleChange} value={values.password} name={'password'} label={'Password'} type={'password'} />
 
                 <Button type='submit' width={'100%'} padding={'10px'} color={'#fff'} background={'#3B49DF'} borderRadius={'5px'} height={'48px'} margin={'24px 0 0'}>{type === 'register' ? 'Register' : 'Log In'}</Button>
               </Contain>
