@@ -30,7 +30,10 @@ export class User {
   ) {
     // {TODO: add validations for email username and password}
 
-    // {TODO: add validation for unique emails }
+    const user = await UserModel.findOne({ username: username });
+    if (user) {
+      return { success: false, msg: "Email already exists" };
+    }
 
     const promise = new Promise((resolve, reject) => {
       bcrypt.genSalt(10, async function (err, salt) {
