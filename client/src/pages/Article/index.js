@@ -8,20 +8,21 @@ import draftToHtml from 'draftjs-to-html';
 import moment from 'moment';
 
 const ArticleDetails = () => {
-  const [articleDetails, setArticleDetails] = useState({})
+  const [articleDetails, setArticleDetails] = useState(null)
   const { articleId } = useParams()
 
   // TODO: move to redux
   useEffect(() => {
-    fetchArticlesDetails();
-  }, []);
+    const onMount = async () => {
+      const data = await Article.getArticleDetails(articleId);
+      setArticleDetails(data?.articles);
+    }
+    if (!articleDetails) {
+      onMount()
+    }
+  }, [articleDetails]);
 
-  const fetchArticlesDetails = async () => {
-    const data = await Article.getArticleDetails(articleId);
-    setArticleDetails(data?.articles);
-  }
-
-  const { content } = articleDetails;
+  const { content } = articleDetails || {};
   let html = '';
 
   if (content) {
