@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div((props) => ({
   maxWidth: '1300px',
   margin: '0 auto',
-  padding: '0 20px',
+  padding: '0 20px 20px',
 
   '@media screen and(max - width: 768px)': {
     padding: '0 10px',
