@@ -2,9 +2,8 @@ import React from 'react';
 import { Wrapper, Contain, Button, Textarea } from '../../components/Collection'
 import { useFormik } from 'formik';
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState } from 'draft-js'; //convertToRaw
+import { EditorState, convertToRaw } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-// import draftToHtml from 'draftjs-to-html';
 import { Article } from '../../sdk/article.sdk'
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +11,7 @@ const Write = ({ userDetails }) => {
   const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
-    const res = await Article.createArticle(values?.title, values?.content, userDetails).catch(err => {
+    const res = await Article.createArticle(values?.title, JSON.stringify(convertToRaw(values.content.getCurrentContent())), userDetails).catch(err => {
       console.log(err.error);
       return;
     });
@@ -38,10 +37,6 @@ const Write = ({ userDetails }) => {
     formik.setFieldValue('content', editorState);
   };
 
-  // const contentState = formik.values.content.getCurrentContent();
-  // const rawContentState = convertToRaw(contentState);
-  // const markup = draftToHtml(rawContentState);
-
   const toolbarConfig = {
     options: ['inline', 'list'],
 
@@ -49,6 +44,8 @@ const Write = ({ userDetails }) => {
 
   return (
     <Wrapper>
+      <button onClick={() => console.log(formik.values.content.getCurrentContent())}>formik</button>
+      <button onClick={() => console.log(formik.values)}>formik</button>
       <Contain border={'1px solid lightGrey'} borderRadius={'5px'} background={'#fff'} maxWidth={'800px'} width={'100%'} margin={'20px 0 0'} padding={'20px'}>
         <form onSubmit={formik.handleSubmit}>
           <Textarea
@@ -80,7 +77,6 @@ const Write = ({ userDetails }) => {
       </Contain>
 
       {/* TODO: live preview */}
-      {/* <div dangerouslySetInnerHTML={{ __html: markup }} /> */}
 
 
     </Wrapper>
