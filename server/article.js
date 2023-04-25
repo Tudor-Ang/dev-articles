@@ -31,4 +31,14 @@ export class Article {
     }
     return { success: true, articles: article };
   }
+
+  async getArticleDetails(id) {
+    const article = await ArticleModel.findById(id);
+    if (!article) {
+      return { success: false, msg: 'article not found' };
+    }
+    return { success: true, articles: article };
+  }
+
+
 }

@@ -16,4 +16,8 @@ export class Article {
     return Article.remote.call("Article.getArticles", user)
   }
 
+  static async getArticleDetails(id) {
+    return Article.remote.call("Article.getArticleDetails", id)
+  }
+
 }
