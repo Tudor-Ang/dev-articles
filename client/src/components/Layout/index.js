@@ -5,7 +5,7 @@ import Navbar from './navbar';
 const Layout = ({ Component, name }) => {
   const userDetails = JSON.parse(localStorage.getItem('user'))
 
-  // TODO: fix sending multiple POST reqs
+  // TODO: fix sending multiple reqs
   // TODO: move to redux
   useEffect(() => {
     if (name !== 'Login' && name !== 'Register') {
