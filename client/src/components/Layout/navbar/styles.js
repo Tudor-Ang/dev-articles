@@ -11,6 +11,12 @@ export const Nav = styled.div((props) => ({
   height: '56px',
   backgroundColor: props.theme.colors.white,
   padding: '0 20px',
+
+  '@media screen and (max-width: 768px)': {
+    flexDirection: 'column',
+    height: 'auto',
+    padding: '10px',
+  },
 }))
 
 export const Logo = styled.a((props) => ({
