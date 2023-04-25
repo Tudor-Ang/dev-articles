@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import moment from 'moment'
 
 const Post = ({ data }) => {
-  const { creator, title, createdAt } = data || []
+  const { creator, title, createdAt, _id } = data || []
   return (
-    <Link to={'/article/dkwakdka'}>
+    <Link to={`/article/${_id}`}>
       <Contain hoverAnimation cursor={'pointer'} margin={'20px 0 0'}>
         <Contain direction={'column'} justify={'center'} minHeight={'227px'} width={'100%'} border={'1px solid lightgrey'} borderRadius={'5px'} background={'#fff'} padding={'20px'}>
           <Contain margin={'0 0 20px'} height={'50px'}>
