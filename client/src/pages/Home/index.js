@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
-
 import Post from '../../components/Post'
 import { Wrapper } from '../../components/Collection'
-
 import { Article } from '../../sdk/article.sdk'
 
 const Home = () => {
 
   const [articles, setArticles] = useState([])
 
+  // TODO: move to redux
   useEffect(() => {
     fetchArticles();
   }, []);
@@ -22,7 +21,6 @@ const Home = () => {
     <Wrapper>
 
       {articles?.map((article) => (<Post key={article?._id} data={article} />))}
-
 
     </Wrapper>
   )

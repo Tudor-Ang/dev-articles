@@ -10,6 +10,7 @@ const ArticleDetails = () => {
   const [articleDetails, setArticleDetails] = useState({})
   const { articleId } = useParams()
 
+  // TODO: move to redux
   useEffect(() => {
     fetchArticlesDetails();
   }, []);

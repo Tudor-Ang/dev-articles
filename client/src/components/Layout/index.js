@@ -6,6 +6,7 @@ const Layout = ({ Component, name }) => {
   const userDetails = JSON.parse(localStorage.getItem('user'))
 
   // TODO: fix sending multiple POST reqs
+  // TODO: move to redux
   useEffect(() => {
     if (name !== 'Login' && name !== 'Register') {
       if (localStorage.getItem('apiToken') === null || localStorage.getItem('user') === null) {
@@ -21,7 +22,7 @@ const Layout = ({ Component, name }) => {
       }
       checkToken();
     }
-  });
+  }, []);
 
   const logOut = async () => {
     await User.logout(localStorage.getItem('apiToken'))

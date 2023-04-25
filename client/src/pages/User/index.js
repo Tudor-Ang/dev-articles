@@ -13,6 +13,7 @@ const UserProfile = () => {
   // TODO: redirect to 404 if we dont have any username
   const { username } = useParams()
 
+  // TODO: move to redux
   useEffect(() => {
     getUserDetails()
     generateRandomHexCode()
