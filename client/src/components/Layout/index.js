@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { User } from '../../sdk/user.sdk';
 import Navbar from './navbar';
+import ScrollToTop from "react-scroll-to-top";
 
 const Layout = ({ Component, name }) => {
   const userDetails = JSON.parse(localStorage.getItem('user'))
@@ -36,8 +37,8 @@ const Layout = ({ Component, name }) => {
     <>
       {/* TODO: display loading screen until we check the token */}
       <Navbar logoutHandler={logOut} userDetails={userDetails} />
-
       <Component userDetails={userDetails} />
+      <ScrollToTop width='30px' height='30px' color={'#3B49DF'} smooth />
     </>
   )
 }
