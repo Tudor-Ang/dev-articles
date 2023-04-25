@@ -31,7 +31,7 @@ const routes = [
   },
   {
     name: 'article',
-    path: '/article/:article',
+    path: '/article/:articleId',
     isPrivate: false,
     Component: Article,
     Layout,
