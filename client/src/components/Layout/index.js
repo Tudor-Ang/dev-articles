@@ -13,13 +13,6 @@ const Layout = ({ Component, name }) => {
         localStorage.clear();
         window.location.href = '/auth/login';
       }
-      async function checkToken() {
-        const res = await User.getUserByToken(localStorage.getItem('apiToken'));
-        if (!res || !res.success) {
-          localStorage.clear();
-          window.location.href = '/auth/login';
-        }
-      }
       checkToken();
     }
   }, []);
@@ -31,6 +24,13 @@ const Layout = ({ Component, name }) => {
     window.location.href = '/auth/login';
   }
 
+  const checkToken = async () => {
+    const res = await User.getUserByToken(localStorage.getItem('apiToken'));
+    if (!res || !res.success) {
+      localStorage.clear();
+      window.location.href = '/auth/login';
+    }
+  }
 
   return (
     <>
