@@ -12,7 +12,6 @@ export class Article {
   }
 
   async createArticle(title, content, creator) {
-
     const article = await ArticleModel.create({
       title: title,
       content: content,
@@ -23,5 +22,13 @@ export class Article {
       success: true,
       article: { title: title, content: content, creator: creator }
     };
+  }
+
+  async getArticles(user) {
+    const article = await ArticleModel.find(user ? { 'creator.username': user } : {});
+    if (!article) {
+      return { success: false, msg: 'article not found' };
+    }
+    return { success: true, articles: article };
   }
 }
