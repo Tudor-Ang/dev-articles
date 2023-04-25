@@ -90,6 +90,12 @@ export const P = styled.p((props) => ({
   ...(props.opacity && { opacity: props.opacity }),
   ...(props.margin && { margin: props.margin }),
   ...(props.padding && { padding: props.padding }),
+
+  ...(props.hoverAnimation && {
+    '&:hover': {
+      color: '#3B49DF',
+    },
+  }),
 }));
 
 export const Textarea = styled.textarea((props) => ({
