@@ -5,13 +5,13 @@ import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Article } from '../../sdk/article.sdk'
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 
 const Write = ({ userDetails }) => {
   const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
-    const res = await Article.createArticle(values?.title, JSON.stringify(convertToRaw(values.content.getCurrentContent())), userDetails).catch(err => {
+    const res = await Article.createArticle(values?.title, JSON.stringify(convertToRaw(values.content.getCurrentContent())), JSON.parse(userDetails)).catch(err => {
       console.log(err.error);
       return;
     });

@@ -12,7 +12,7 @@ function App() {
     <ThemeProvider theme={Theme}>
       <Router>
         <Routes>
-          {routes.map(({ Layout, Component, ...props }) => <Route key={props.name} path={props.path} element={<Layout {...props}><Component {...props} /></Layout>} />)}
+          {routes.map(({ Layout, ...props }) => <Route key={props.name} path={props.path} element={<Layout {...props} />} />)}
         </Routes>
       </Router>
     </ThemeProvider>

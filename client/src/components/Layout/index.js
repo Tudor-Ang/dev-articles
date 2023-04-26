@@ -4,7 +4,7 @@ import Navbar from './navbar';
 import ScrollToTop from "react-scroll-to-top";
 // import { Navigate } from "react-router-dom";
 
-const Layout = ({ name, children }) => {
+const Layout = ({ name, Component }) => {
   const userDetails = localStorage.getItem('user')
   // TODO: move to redux
   useEffect(() => {
@@ -37,7 +37,7 @@ const Layout = ({ name, children }) => {
     <div key={name}>
       {/* TODO: display loading screen until we check the token */}
       <Navbar logoutHandler={logOut} userDetails={JSON.parse(userDetails)} />
-      {children}
+      <Component userDetails={userDetails} />
       <ScrollToTop width='30px' height='30px' color={'#3B49DF'} smooth />
     </div>
   )
