@@ -1,0 +1,12 @@
+frontend:
+    path: client
+    publish: build
+    scripts:
+        build:
+            - npm run build
+        deploy:
+            - npm install
+    subdomain: magenta-dramatic-wren
+name: magenta-dramatic-wren
+region: us-east-1
+yamlVersion: 2
